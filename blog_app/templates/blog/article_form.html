@@ -1,0 +1,88 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+    {% if form.instance.pk %}
+        Modifier l'article - Takh221
+    {% else %}
+        Nouvel article - Takh221
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>
+        {% if form.instance.pk %}
+            Modifier l'article
+        {% else %}
+            Créer un nouvel article
+        {% endif %}
+    </h2>
+
+    <form method="post" enctype="multipart/form-data" class="article-form">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="{{ form.titre.id_for_label }}">Titre :</label>
+            {{ form.titre }}
+            {% if form.titre.errors %}
+                <div class="error">{{ form.titre.errors }}</div>
+            {% endif %}
+        </div>
+
+        {% if form.statut %}
+        <div class="form-group">
+            <label for="{{ form.statut.id_for_label }}">Statut :</label>
+            {{ form.statut }}
+            {% if form.statut.errors %}
+                <div class="error">{{ form.statut.errors }}</div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% if form.auteur %}
+        <div class="form-group">
+            <label for="{{ form.auteur.id_for_label }}">Auteur :</label>
+            {{ form.auteur }}
+            {% if form.auteur.errors %}
+                <div class="error">{{ form.auteur.errors }}</div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <div class="form-group">
+            <label for="{{ form.contenu.id_for_label }}">Contenu :</label>
+            {{ form.contenu }}
+            {% if form.contenu.errors %}
+                <div class="error">{{ form.contenu.errors }}</div>
+            {% endif %}
+        </div>
+
+        {% if form.image %}
+        <div class="form-group">
+            <label for="{{ form.image.id_for_label }}">Image :</label>
+            {{ form.image }}
+            {% if form.image.errors %}
+                <div class="error">{{ form.image.errors }}</div>
+            {% endif %}
+            {% if form.instance.image %}
+                <div class="current-image">
+                    <p>Image actuelle :</p>
+                    <img src="{{ form.instance.image.url }}" alt="Image actuelle" style="max-width: 200px;">
+                </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                {% if form.instance.pk %}
+                    Mettre à jour
+                {% else %}
+                    Créer
+                {% endif %}
+            </button>
+            <a href="{% url 'article-list' %}" class="btn btn-secondary">Annuler</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

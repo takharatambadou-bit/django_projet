@@ -1,0 +1,72 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block title %}Takh221 Administration{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">Takh221 Administration</a></h1>
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<script>
+// Force le thème clair côté admin et neutralise le sélecteur enregistré.
+document.documentElement.setAttribute('data-theme', 'light');
+try {
+    localStorage.setItem('theme', 'light');
+} catch (e) {
+    // Ignorer si le stockage local est indisponible.
+}
+</script>
+{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+:root {
+    --primary: #1f45fc;
+    --secondary: #1f45fc;
+    --accent: #1f45fc;
+    --link-fg: #1f45fc;
+    --link-selected-fg: #1f45fc;
+    --button-bg: #1f45fc;
+    --button-hover-bg: #1739d1;
+    --default-button-bg: #1f45fc;
+    --default-button-hover-bg: #1739d1;
+}
+
+#header,
+.module h2,
+.module caption,
+.inline-group h2 {
+    background: #1f45fc;
+}
+
+a:link,
+a:visited {
+    color: #1f45fc;
+}
+
+.button,
+input[type="submit"],
+input[type="button"],
+.submit-row input,
+a.button {
+    background: #1f45fc;
+}
+
+.button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.submit-row input:hover,
+a.button:hover {
+    background: #1739d1;
+}
+
+/* Masque le bouton soleil/lune du header admin. */
+#theme-toggle,
+.theme-toggle {
+    display: none !important;
+}
+</style>
+{% endblock %}

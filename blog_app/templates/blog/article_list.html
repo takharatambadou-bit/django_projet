@@ -1,0 +1,55 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Accueil - Takh221{% endblock %}
+
+{% block content %}
+<div class="articles-header">
+    <h2>Articles récents</h2>
+</div>
+
+{% if articles %}
+    <div class="articles-grid">
+        {% for article in articles %}
+        <article class="article-card">
+            {% if article.image %}
+                <div class="article-image">
+                    <img src="{{ article.image.url }}" alt="{{ article.titre }}">
+                </div>
+            {% endif %}
+            <div class="article-content">
+                <h3><a href="{% url 'article-detail' article.pk %}">{{ article.titre }}</a></h3>
+                <div class="article-meta">
+                    <span class="author">Par {{ article.auteur }}</span>
+                    <span class="status">Statut : {{ article.get_statut_display }}</span>
+                    <span class="date">{{ article.date_publication|date:"d F Y" }}</span>
+                </div>
+                <p class="article-excerpt">{{ article.contenu|truncatewords:30 }}</p>
+                <a href="{% url 'article-detail' article.pk %}" class="btn btn-secondary">Lire la suite</a>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+
+    {% if is_paginated %}
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page=1" class="btn">&laquo; Première</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn">Précédent</a>
+        {% endif %}
+
+        <span class="current-page">
+            Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn">Suivant</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="btn">Dernière &raquo;</a>
+        {% endif %}
+    </div>
+    {% endif %}
+{% else %}
+    <div class="no-articles">
+        <p>Aucun article n'a encore été publié.</p>
+    </div>
+{% endif %}
+{% endblock %}

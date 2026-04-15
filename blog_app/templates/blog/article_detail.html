@@ -1,0 +1,32 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}{{ article.titre }} - Takh221{% endblock %}
+
+{% block content %}
+<article class="article-detail">
+    <header class="article-header">
+        <h1>{{ article.titre }}</h1>
+        <div class="article-meta">
+            <span class="author">Par {{ article.auteur }}</span>
+            <span class="status">Statut : {{ article.get_statut_display }}</span>
+            <span class="date">{{ article.date_publication|date:"d F Y à H:i" }}</span>
+        </div>
+    </header>
+
+    {% if article.image %}
+    <div class="article-image-full">
+        <img src="{{ article.image.url }}" alt="{{ article.titre }}">
+    </div>
+    {% endif %}
+
+    <div class="article-body">
+        {{ article.contenu|linebreaks }}
+    </div>
+
+    <div class="article-actions">
+        <a href="{% url 'article-list' %}" class="btn btn-secondary">Retour à la liste</a>
+        <a href="{% url 'article-update' article.pk %}" class="btn btn-warning">Modifier</a>
+        <a href="{% url 'article-delete' article.pk %}" class="btn btn-danger">Supprimer</a>
+    </div>
+</article>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Supprimer l'article - Takh221{% endblock %}
+
+{% block content %}
+<div class="delete-container">
+    <h2>Confirmer la suppression</h2>
+    
+    <div class="delete-warning">
+        <p>Êtes-vous sûr de vouloir supprimer cet article ?</p>
+        
+        <div class="article-preview">
+            <h3>{{ article.titre }}</h3>
+            <p><strong>Auteur :</strong> {{ article.auteur }}</p>
+            <p><strong>Date :</strong> {{ article.date_publication|date:"d F Y" }}</p>
+        </div>
+        
+        <p class="warning-text">Cette action est irréversible.</p>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-danger">Oui, supprimer</button>
+            <a href="{% url 'article-detail' article.pk %}" class="btn btn-secondary">Annuler</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

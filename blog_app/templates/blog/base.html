@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Takh221{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <h1 class="logo"><a href="{% url 'article-list' %}">Takh221</a></h1>
+                <ul class="nav-links">
+                    <li><a href="{% url 'article-list' %}">Accueil</a></li>
+                    <li><a href="{% url 'article-create' %}">Nouvel Article</a></li>
+                    <li><a href="/admin/">Administration</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Takh221 - Tous droits réservés</p>
+        </div>
+    </footer>
+</body>
+</html>
